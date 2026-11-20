@@ -1,4 +1,4 @@
-<div align="center">
+<div align="center" id="top">
 
 
 <img src="assets/cute_narwhal_stroke_by_stroke.svg" width="100%" alt="逐笔绘制示意：每笔带颜色与序号">
@@ -83,6 +83,12 @@ outputs/
 
 每张 PNG 为 10×10 网格（末批不足时隐藏多余子图），子图标题即该图的全局编号。
 
+<div align="center">
+
+<img src="assets/sample-output.png" width="100%" alt="bee 类别第 1 批输出示例：10×10 网格，编号 1-100">
+
+</div>
+
 ---
 
 ## <img src="assets/characters/notes.png" width="26" height="26" alt="熊猫图标"> 许可与致谢
@@ -92,6 +98,6 @@ outputs/
 
 <div align="center">
 
-**[⬆ 回到顶部](#render-strokes-order)**
+**[⬆ 回到顶部](#top)**
 
 </div>
