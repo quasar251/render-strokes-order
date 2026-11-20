@@ -1,18 +1,15 @@
 <div align="center">
 
-# render-strokes-order
+<!-- # render-strokes-order -->
+<img src="assets/cute_narwhal_stroke_by_stroke.svg" width="600" alt="逐笔绘制示意：每笔带颜色与序号">
+<img src="assets/banner.png" width="600" alt="render-strokes-order banner">
+
+
 **从 QuickDraw 读取草图笔画，为每笔赋予颜色并标注序号。类别数据按批复用，支持断点续跑与多进程绘制。**
 
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-
-
-
-
-<img src="assets/banner.png" width="600" alt="render-strokes-order banner">
-
-<img src="assets/cute_narwhal_stroke_by_stroke.svg" width="600" alt="逐笔绘制示意：每笔带颜色与序号">
 </div>
 
 ## <img src="assets/characters/requirements.png" width="26" height="26" alt="小熊图标"> 环境要求
