@@ -1,13 +1,8 @@
 <div align="center">
 
-<table align="center" cellpadding="0" cellspacing="0" border="0">
-<tr><td align="center">
 <img src="assets/banner.png" width="100%" alt="render-strokes-order banner">
-</td></tr>
-<tr><td align="center">
+
 <img src="assets/cute_narwhal_stroke_by_stroke.svg" width="100%" alt="逐笔绘制示意：每笔带颜色与序号">
-</td></tr>
-</table>
 
 <!-- # render-strokes-order -->
 
