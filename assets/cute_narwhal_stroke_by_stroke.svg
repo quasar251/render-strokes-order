@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-label="逐笔绘制的蓝皮肤白肚子独角鲸插画" style="--num-font-size:20px">
+  <style>
+    /* ── 通用描边动画：pathLength=1 + dash 偏移，模拟逐笔绘制 ── */
+    .ink{
+      fill:none;
+      stroke-width:3.2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke-dasharray:1;
+      stroke-dashoffset:1;
+      animation:draw var(--dur,1s) cubic-bezier(.45,.05,.25,1) var(--delay,0s) forwards;
+    }
+    @keyframes draw{ to{ stroke-dashoffset:0 } }
+
+    /* 填充层：描边完成后“涂色” */
+    .skin  { fill:#4fa8d8; opacity:0; animation:fadeIn .8s ease 4.10s forwards }
+    .belly { fill:#ffffff; opacity:0; animation:fadeIn .7s ease 4.35s forwards }
+    .tfill { fill:#f4f1e8; opacity:0; animation:fadeIn .5s ease 4.00s forwards }
+    .ffill { fill:#3d9fd1; opacity:0; animation:fadeIn .5s ease 4.50s forwards }
+    @keyframes fadeIn{ to{ opacity:1 } }
+
+    /* 瞳孔与高光 */
+    .pupil{ fill:#0d4d6b; opacity:0; animation:fadeIn .35s ease 3.80s forwards }
+    .highlight{ fill:#fff; opacity:0; animation:fadeIn .30s ease 4.00s forwards }
+
+    /* 画完后整体轻轻游动 */
+    .swim{
+      transform-box:view-box;
+      transform-origin:300px 210px;
+      animation:swim 5s ease-in-out 5.2s infinite;
+    }
+    @keyframes swim{
+      0%,100%{ transform:translateY(0) rotate(0deg) }
+      50%    { transform:translateY(-9px) rotate(-1.2deg) }
+    }
+
+    /* 气泡 */
+    .bubble{
+      fill:#fff;
+      stroke:#3d9fd1;
+      stroke-width:1.5;
+      opacity:0;
+      transform-box:fill-box;
+      transform-origin:center;
+      animation:rise 4.2s ease-in-out 5.2s infinite;
+    }
+    @keyframes rise{
+      0%  { opacity:0;  transform:translateY(8px)  scale(.7) }
+      18% { opacity:.95 }
+      70% { opacity:.85 }
+      100%{ opacity:0;  transform:translateY(-16px) scale(1.15) }
+    }
+
+    @keyframes sparkle{
+      0%,100%{ opacity:0 }
+      45%,55%{ opacity:1 }
+    }
+
+    /* 鲸身下方波浪状蓝色光晕（绘制完成后浮现，柔光脉动） */
+    .glowBelow{ opacity:0; animation:sparkle 3.2s ease-in-out 5.2s infinite }
+
+    /* 笔画序号标注：随每一笔出现，出现后一直保留 */
+    .stepnum{
+      opacity:0;
+      animation:stepShow var(--dur,1s) ease-out var(--delay,0s) forwards;
+    }
+    .stepnum circle{
+      fill:rgba(255,255,255,.92);
+      stroke:var(--sc,#555);
+      stroke-width:2;
+    }
+    .stepnum text{
+      fill:var(--sc,#555);
+      font:700 var(--num-font-size,11px) system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+      text-anchor:middle;
+      dominant-baseline:central;
+    }
+    @keyframes stepShow{
+      0%  { opacity:0 }
+      20% { opacity:1 }
+      100%{ opacity:1 }
+    }
+
+    /* 尊重“减少动态效果”偏好 */
+    @media (prefers-reduced-motion: reduce){
+      .ink,.skin,.belly,.tfill,.ffill,.pupil,.highlight{ animation:none!important; stroke-dashoffset:0!important; opacity:1!important }
+      .swim,.bubble,.glowBelow{ animation:none!important }
+      .bubble{ opacity:.85!important }
+      .glowBelow{ opacity:.55!important }
+      .stepnum{ animation:none!important; opacity:1!important }
+    }
+  </style>
+
+  <defs>
+    <!-- 鲸身下方波浪状蓝色光晕渐变（两端渐隐） -->
+    <linearGradient id="glowBlue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#8fd6ff" stop-opacity="0"/>
+      <stop offset="12%"  stop-color="#8fd6ff" stop-opacity=".8"/>
+      <stop offset="88%"  stop-color="#8fd6ff" stop-opacity=".8"/>
+      <stop offset="100%" stop-color="#8fd6ff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- 波浪光晕柔化 -->
+    <filter id="softBlur" x="-30%" y="-80%" width="160%" height="260%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+
+    <clipPath id="bodyClip">
+      <path d="M462 212
+               C452 186 420 168 372 160
+               C318 151 258 153 205 165
+               C168 174 138 186 118 198
+               L70 166
+               C64 160 56 166 60 176
+               L96 205
+               L60 234
+               C56 244 64 250 70 244
+               L118 216
+               C138 230 168 242 205 252
+               C258 264 318 266 372 257
+               C420 249 452 238 462 212 Z"/>
+    </clipPath>
+  </defs>
+
+  <g id="scene">
+
+    <!-- 鲸身下方波浪状蓝色光晕（绘制完成后浮现） -->
+    <g class="glowBelow" filter="url(#softBlur)">
+      <path fill="url(#glowBlue)" opacity=".6"
+        d="M15 318 Q63 302 110 318 Q158 334 205 318 Q253 302 300 318 Q348 334 395 318 Q443 302 490 318 Q538 334 585 318 L585 352 Q538 368 490 352 Q443 336 395 352 Q348 368 300 352 Q253 336 205 352 Q158 368 110 352 Q63 336 15 352 Z"/>
+      <path fill="none" stroke="url(#glowBlue)" stroke-width="9" stroke-linecap="round" opacity=".5"
+        d="M40 372 Q83 359 125 372 Q168 385 210 372 Q253 359 295 372 Q338 385 380 372 Q423 359 465 372 Q508 385 550 372"/>
+    </g>
+
+    <!-- ── 独角鲸主体 ── -->
+    <g class="swim">
+
+      <!-- ① 填充层（位于描边之下） -->
+      <path class="skin" d="M462 212
+           C452 186 420 168 372 160
+           C318 151 258 153 205 165
+           C168 174 138 186 118 198
+           L70 166
+           C64 160 56 166 60 176
+           L96 205
+           L60 234
+           C56 244 64 250 70 244
+           L118 216
+           C138 230 168 242 205 252
+           C258 264 318 266 372 257
+           C420 249 452 238 462 212 Z"/>
+      <path class="belly" clip-path="url(#bodyClip)"
+           d="M118 216
+              C138 230 168 242 205 252
+              C258 264 318 266 372 257
+              C420 249 452 238 462 212
+              C455 216 440 222 410 229
+              C355 240 290 239 235 231
+              C192 224 148 218 118 216 Z"/>
+      <path class="tfill" d="M455 202 C484 180 520 140 556 96"/>
+      <path class="ffill" d="M288 257 C305 280 300 303 277 313 C290 296 291 275 283 259"/>
+
+      <!-- ② 描边层（逐笔，彩色，共 5 笔） -->
+      <!-- 1. 身体轮廓 -->
+      <path class="ink" pathLength="1" style="stroke:#ff6b9d;--dur:1.8s;--delay:0s"
+        d="M462 212
+           C452 186 420 168 372 160
+           C318 151 258 153 205 165
+           C168 174 138 186 118 198
+           L70 166
+           C64 160 56 166 60 176
+           L96 205
+           L60 234
+           C56 244 64 250 70 244
+           L118 216
+           C138 230 168 242 205 252
+           C258 264 318 266 372 257
+           C420 249 452 238 462 212 Z"/>
+
+      <!-- 2. 独角（一条线） -->
+      <path class="ink" pathLength="1" style="stroke:#ffa94d;--dur:.8s;--delay:1.7s"
+        d="M455 202 C484 180 520 140 556 96"/>
+
+      <!-- 3. 胸鳍 -->
+      <path class="ink" pathLength="1" style="stroke:#38d9c0;--dur:.6s;--delay:2.7s"
+        d="M288 257 C305 280 300 303 277 313 C290 296 291 275 283 259"/>
+
+      <!-- 4. 眼睛 -->
+      <path class="ink" pathLength="1" style="stroke:#7a5cff;--dur:.4s;--delay:3.3s"
+        d="M425 206 A7 7 0 1 0 439 206 A7 7 0 1 0 425 206"/>
+
+      <!-- 5. 嘴 -->
+      <path class="ink" pathLength="1" style="stroke:#ff5a7a;--dur:.3s;--delay:3.7s"
+        d="M458 218 C448 224 436 223 428 216"/>
+
+      <circle class="pupil" cx="432" cy="206" r="3.2"/>
+      <circle class="highlight" cx="430.4" cy="204.4" r="1.15"/>
+
+    </g>
+
+    <!-- 气泡 -->
+    <g>
+      <circle class="bubble" cx="528" cy="54" r="5"/>
+      <circle class="bubble" cx="560" cy="30" r="3.4" style="animation-delay:6.4s"/>
+      <circle class="bubble" cx="590" cy="64" r="2.5" style="animation-delay:7.7s"/>
+    </g>
+
+    <!-- 笔画序号标注（随每一笔出现，出现后一直保留） -->
+    <g>
+      <g class="stepnum" style="--delay:0s;--dur:1.8s;--sc:#ff6b9d">
+        <circle cx="300" cy="165" r="13"/><text x="300" y="165">1</text>
+      </g>
+      <g class="stepnum" style="--delay:1.7s;--dur:.8s;--sc:#ffa94d">
+        <circle cx="506" cy="148" r="11"/><text x="506" y="148">2</text>
+      </g>
+      <g class="stepnum" style="--delay:2.7s;--dur:.6s;--sc:#38d9c0">
+        <circle cx="298" cy="296" r="10"/><text x="298" y="296">3</text>
+      </g>
+      <g class="stepnum" style="--delay:3.3s;--dur:.4s;--sc:#7a5cff">
+        <circle cx="447" cy="194" r="9"/><text x="447" y="194">4</text>
+      </g>
+      <g class="stepnum" style="--delay:3.7s;--dur:.3s;--sc:#ff5a7a">
+        <circle cx="465" cy="221" r="9"/><text x="465" y="221">5</text>
+      </g>
+    </g>
+
+  </g>
+
+</svg>

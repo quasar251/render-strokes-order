@@ -1,0 +1,45 @@
+MIT License
+
+Copyright (c) 2026 render-strokes-order contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+素材来源与许可
+
+装饰素材使用公开许可的 Twemoji 动物图标，作者 Twitter, Inc.，采用 CC-BY 4.0 许可（https://creativecommons.org/licenses/by/4.0/）。CC-BY 允许复制、修改、分发和商用，需保留署名；以下列出来源便于追溯。
+
+- 顶部横幅 `assets/banner.png`，由以下 Twemoji 素材组合加工而成：
+  - 🦉 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f989.png
+  - 🐻 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f43b.png
+  - 🐰 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f430.png
+  - 🦊 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f98a.png
+  - 🐙 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f419.png
+  - 🦘 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f998.png
+  - 🐢 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f422.png
+  - 🐝 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f41d.png
+  - 🐱 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f431.png
+  - 🐼 https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f43c.png
+
+- 章节动物图标 `assets/characters/*.png`，由上述素材缩放并加底色后生成：`overview.png`（1f989）、`requirements.png`（1f43b）、`data.png`（1f430）、`run.png`（1f98a）、`params.png`（1f419）、`output.png`（1f998）、`checkpoint.png`（1f422）、`parallel.png`（1f41d）、`faq.png`（1f431）、`notes.png`（1f43c）。
+
+Twemoji 项目地址：https://github.com/twitter/twemoji
+
+`assets/narwhal_stroke_by_stroke.svg` 等示意图为本项目本地绘制的原创素材。
