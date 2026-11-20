@@ -22,7 +22,9 @@
 
 ---
 
-## <img src="assets/characters/requirements.png" width="26" height="26" alt="小熊图标"> 环境要求
+## <img src="assets/characters/requirements.png" width="26" height="26" alt="小熊图标"> 项目简介
+
+**render-strokes-order** 从 QuickDraw 数据集中读取草图笔画，为每一笔赋予颜色并标注序号，从而直观呈现「先画哪笔、后画哪笔」。类别数据按批复用，支持断点续跑与多进程绘制。
 
 Python 3.9+，依赖：
 
