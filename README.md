@@ -1,7 +1,7 @@
 <div align="center" id="top">
 
 
-<img src="assets/cute_narwhal_stroke_by_stroke.svg" width="80%" style="display:block; aspect-ratio:600/300" alt="逐笔绘制示意：每笔带颜色与序号">
+<img src="assets/cute_narwhal_stroke_by_stroke.svg" width="85%" style="display:block; aspect-ratio:600/300" alt="逐笔绘制示意：每笔带颜色与序号">
 
 <img src="assets/banner.png" width="100%" alt="render-strokes-order banner">
 
