@@ -16,7 +16,13 @@
 每笔带颜色并标注序号的逐笔绘制示意：
 
 <p align="center">
-  <img src="assets/cute_narwhal_stroke_by_stroke.svg" width="600" alt="逐笔绘制示意">
+  <a href="assets/cute_narwhal_stroke_by_stroke.svg">
+    <img src="assets/cute_narwhal_stroke_by_stroke.svg" width="600" alt="逐笔绘制示意（点击可重新播放）">
+  </a>
+</p>
+
+<p align="center">
+  <sub>点击图片在新标签页打开，可使用「重新播放」按钮 ↻</sub>
 </p>
 
 ## <img src="assets/characters/requirements.png" width="26" height="26" alt="小熊图标"> 环境要求
