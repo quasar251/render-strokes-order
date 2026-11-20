@@ -82,19 +82,6 @@
     }
 
     /* 尊重“减少动态效果”偏好 */
-    /* replay button */
-    .replay{ cursor:pointer }
-    .replay rect{ fill:rgba(13,77,107,.82); transition:fill .18s ease }
-    .replay:hover rect{ fill:#0d4d6b }
-    .replay text{
-      fill:#fff;
-      font:600 14px system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-      text-anchor:middle;
-      dominant-baseline:central;
-      pointer-events:none;
-      user-select:none;
-    }
-
     @media (prefers-reduced-motion: reduce){
       .ink,.skin,.belly,.tfill,.ffill,.pupil,.highlight{ animation:none!important; stroke-dashoffset:0!important; opacity:1!important }
       .swim,.bubble,.glowBelow{ animation:none!important }
@@ -236,29 +223,6 @@
         <circle cx="465" cy="221" r="9"/><text x="465" y="221">5</text>
       </g>
     </g>
-
-  <!-- replay button: works when the SVG is opened directly in a browser -->
-  <g class="replay" id="replay" role="button" tabindex="0" aria-label="replay drawing animation">
-    <rect x="16" y="16" width="104" height="34" rx="17"/>
-    <text x="68" y="34">&#x21bb; 重新播放</text>
-  </g>
-
-  <script type="text/ecmascript"><![CDATA[
-    (function () {
-      var button = document.getElementById('replay');
-      var targets = '.ink,.skin,.belly,.tfill,.ffill,.pupil,.highlight,.swim,.bubble,.glowBelow,.stepnum';
-      function replay() {
-        document.querySelectorAll(targets).forEach(function (el) {
-          if (!el.getAnimations) return;
-          el.getAnimations().forEach(function (a) { a.cancel(); a.play(); });
-        });
-      }
-      button.addEventListener('click', replay);
-      button.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); replay(); }
-      });
-    })();
-  ]]></script>
 
   </g>
 
