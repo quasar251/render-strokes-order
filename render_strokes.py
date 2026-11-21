@@ -226,6 +226,47 @@ class SketchDrawer:
             self._grid_key = None
 
 
+def _cpu_quota():
+    """返回容器实际可用的 CPU 核数，优先读取 cgroup v2 配额。"""
+    try:
+        with open('/sys/fs/cgroup/cpu.max', encoding='utf-8') as cpu_file:
+            quota, period = cpu_file.read().split()
+        if quota != 'max':
+            return max(1, int(int(quota) / int(period)))
+    except (OSError, ValueError):
+        pass
+    return os.cpu_count() or 1
+
+
+def _memory_limit_bytes():
+    """读取 cgroup 内存上限；无法获取时返回 None。"""
+    for path in ('/sys/fs/cgroup/memory.max',
+                 '/sys/fs/cgroup/memory/memory.limit_in_bytes'):
+        try:
+            with open(path, encoding='utf-8') as memory_file:
+                value = memory_file.read().strip()
+        except OSError:
+            continue
+        if value.isdigit():
+            return int(value)
+    return None
+
+
+def _safe_max_workers(task_count):
+    """结合 CPU 配额与内存上限，给出不会撑爆容器的并发进程数。"""
+    override = os.environ.get('RENDER_MAX_WORKERS')
+    if override and override.isdigit():
+        return max(1, min(task_count, int(override)))
+    cpu_limit = _cpu_quota()
+    memory_limit = _memory_limit_bytes()
+    # 单个 worker 需加载整类别数据并创建画布，按 700 MB 估算并留出余量
+    memory_limit_workers = (
+        max(1, memory_limit // (700 * 1024 * 1024))
+        if memory_limit else cpu_limit
+    )
+    return max(1, min(task_count, cpu_limit, memory_limit_workers))
+
+
 _CONFIG = None
 _PROGRESS = None
 _WORKER_STATE = {'key': None, 'drawer': None}
@@ -243,6 +284,8 @@ def _draw_batch_worker(task):
     number_offset, category, batch_index = task
     key = (number_offset, category)
     if _WORKER_STATE['key'] != key:
+        if _WORKER_STATE['drawer'] is not None:
+            _WORKER_STATE['drawer'].close()
         _WORKER_STATE['drawer'] = SketchDrawer(
             number_offset, category, _CONFIG.data_dir,
             _CONFIG.use_category_offset, _CONFIG.output_dir,
@@ -425,7 +468,7 @@ def main(categories, total_batches, data_dir,
     pool = None
     if need_pool:
         pool = ProcessPoolExecutor(
-            max_workers=min(config.total_batches, os.cpu_count() or 1),
+            max_workers=_safe_max_workers(config.total_batches),
             initializer=_init_worker,
             initargs=(config, progress),
         )
@@ -470,15 +513,19 @@ def main(categories, total_batches, data_dir,
             pool.shutdown(wait=True)
 
 
+
 if __name__ == '__main__':
-    # 备选类别：
-    # ["airplane", "angel", "alarm_clock", "apple", "butterfly", "belt", "bus",
-    #  "cake", "cat", "clock", "eye", "fish", "pig", "sheep", "spider",
-    #  "great_wall", "umbrella"]
-    # 所有超参数集中在这里，键名与 main 的形参一致，通过 main(**params) 传入
+    '''
+        备选类别：
+        ["bee", "bus", "flower", "giraffe", "pig"]
+        ["airplane", "angel", "alarm_clock", "apple", "butterfly", "belt", "bus",
+        "cake", "cat", "clock", "eye", "fish", "pig", "sheep", "spider",
+        "great_wall", "umbrella"]
+        所有超参数集中在这里，键名与 main 的形参一致，通过 main(**params) 传入
+    '''
     params = {
         # 数据集目录：每个类别对应一个 <类别>.npz 文件
-        'data_dir': '/workspace/data/datasets/quickdraw',
+        'data_dir':'D:\\torch_projects\\00-dataset\\ctg-5',
 
         # 要绘制的类别；会按字母排序，类别编号偏移也按排序后的下标计算
         'categories': sorted(["bee", "bus", "flower", "giraffe", "pig"]),
